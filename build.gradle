@@ -15,11 +15,11 @@ apply plugin: 'eclipse-wtp'
 apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'MyNeuroscienceCenter'
-    version =  '0.1.0'
+    baseName = 'AlphaSimLab'
+    version =  '1.0.0'
 }
 war {
-	archiveName = "MyNeuroscienceCenter.war"
+	archiveName = "AlphaSimLab.war"
 }
 
 
