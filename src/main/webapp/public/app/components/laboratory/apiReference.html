@@ -1,0 +1,175 @@
+<uib-accordion close-others="true">
+	<uib-accordion-group heading="Function: buyTrigger" is-open="true">
+		<figure class="highlight">
+			<code class="language-javascript" data-lang="javascript">
+				function buyTrigger(Object:<a ng-click="accordion.tickOpen=true;">tick</a>, Object:<a ng-click="accordion.simulationOpen=true;">simulation</a>, Object:<a ng-click="accordion.temporalEventsOpen=true;">temporalEvents</a>) return boolean
+			</code>
+		</figure>
+		The buyTrigger function is executed sequentially on each <a ng-click="accordion.tickOpen=true;">tick</a> of the trading data where the <a ng-click="accordion.simulationOpen=true;">simulation</a> is not "bought in" to the market. If it returns true, then the simulation buys in at the close price. This function is a part of the API that should be specified by the user.
+		<br /><br />
+		<strong>Parameter: </strong>
+		<code>Object:<a ng-click="accordion.tickOpen=true;">tick</a></code><br />
+		The first parameter is a reference to the <a ng-click="accordion.tickOpen=true;">tick</a> object that represents the trading data being evaluated by the simulation.
+		<br /><br />
+		<strong>Parameter: </strong>
+		<code>Object:<a ng-click="accordion.simulationOpen=true;">simulation</a></code><br />
+		The second parameter is a reference to the <a ng-click="accordion.simulationOpen=true;">simulation</a> object that is conducting the evaluation. Running totals and other stateful data can be saved into the <a ng-click="accordion.simulationOpen=true;">simulation</a> object to be made available to future executions of the buy and sell methods.
+		<br /><br />
+		<strong>Parameter: </strong>
+		<code>Object:<a ng-click="accordion.temporalEventsOpen=true;">temporalEvents</a></code><br />
+		The third parameter is a reference to the active temporal events object that contains a running history of local minima and maxima.
+		<br /><br />
+		<strong>Notes: </strong>
+		The buyTrigger is potentially executed O(n*m) times by the model where n is the number of simulations and m is the number of <a ng-click="accordion.tickOpen=true;">ticks</a> inside the investing horizon. The developer should be aware of this and make any efforts to minimize the runtime cost of code in this method.
+	</uib-accordion-group>
+	<uib-accordion-group heading="Function: sellTrigger" is-open="accordion.sellTriggerOpen">
+		<figure class="highlight">
+			<code class="language-javascript" data-lang="javascript">
+				function sellTrigger(Object:<a ng-click="accordion.tickOpen=true;">tick</a>, Object:<a ng-click="accordion.simulationOpen=true;">simulation</a>, Object:<a ng-click="accordion.temporalEventsOpen=true;">temporalEvents</a>) return boolean
+			</code>
+		</figure>
+		The sellTrigger function is executed sequentially on each <a ng-click="accordion.tickOpen=true;">tick</a> of the trading data where the simulation is "bought in" to the market. If it returns true, then the simulation sells all holdings at the close price. This function is a part of the API that should be specified by the user.
+		<br /><br />
+		<strong>Parameter: </strong>
+		<code>Object:<a ng-click="accordion.tickOpen=true;">tick</a></code><br />
+		The first parameter is a reference to the <a ng-click="accordion.tickOpen=true;">tick</a> object that represents the trading data being evaluated by the simulation.
+		<br /><br />
+		<strong>Parameter: </strong>
+		<code>Object:<a ng-click="accordion.simulationOpen=true;">simulation</a></code><br />
+		The second parameter is a reference to the <a ng-click="accordion.simulationOpen=true;">simulation</a> object that is conducting the evaluation. Running totals and other stateful data can be saved into the <a ng-click="accordion.simulationOpen=true;">simulation</a> object to be made available to future executions of the buy and sell methods.
+		<br /><br />
+		<strong>Parameter: </strong>
+		<code>Object:<a ng-click="accordion.temporalEventsOpen=true;">temporalEvents</a></code><br />
+		The third parameter is a reference to the active temporal events object that contains a running history of local minima and maxima.
+		<br /><br />
+		<strong>Notes: </strong>
+		The sellTrigger is potentially executed O(n*m) times by the model where n is the number of simulations and m is the number of <a ng-click="accordion.tickOpen=true;">ticks</a> inside the investing horizon. The developer should be aware of this and make any efforts to minimize the runtime cost of code in this method.
+	</uib-accordion-group>
+	<uib-accordion-group heading="Object: tick" is-open="accordion.tickOpen">
+		<figure class="highlight">
+			<code class="language-javascript" data-lang="javascript">
+				tick = { Date:date,  Float:open, Float:high, Float:low, Float:close, Long:volume, Float:adjClose, Float:ttm }
+			</code>
+		</figure>
+		The tick represents a discrete interval of time in which the selected index is actively trading. In our case, each tick resolves to the "trading day" granularity. The tick object encapsulates relevant data about the trading range of it's corresponding day. 
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Date:date</code><br />
+		The trading day of the specified tick; specifically the closing time of said day.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Float:open</code><br />
+		The opening price of the current trading day.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Float:high</code><br />
+		The high price of the current trading day.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Float:low</code><br />
+		The low price of the current trading day.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Float:close</code><br />
+		The closing price of the current trading day.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Long:volume</code><br />
+		The trading volume throughout the current trading day.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Float:adjClose</code><br />
+		The closing price of the current day adjusted for splits, merges and distributions. For indexes, the value is always the same as the close.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Float:ttm</code><br />
+		The trailing twelve month average closing price.
+	</uib-accordion-group>
+	<uib-accordion-group heading="Object: simulation" is-open="accordion.simulationOpen">
+		<figure class="highlight">
+			<code class="language-javascript" data-lang="javascript">
+				simulation = { Date:start, Date:end, Object:<a ng-click="accordion.tickOpen=true;">firstTick</a>, Object:<a ng-click="accordion.tickOpen=true;">lastTick</a>, Array(<a ng-click="accordion.holdingPeriodOpen=true;">holdingPeriod</a>):holdingPeriods, Float:totalsFeesPaid}
+			</code>
+		</figure>
+		The simulation object encapsulates per-simulation attributes such as the starting dates, ending dates, and rolling tally of holding periods and fees.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Date:start</code><br />
+		The first day of the current simulation. This may or may not be a trading day.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Date:end</code><br />
+		The last day of the current simulation. This may or may not be a trading day.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Object:<a ng-click="accordion.tickOpen=true;">firstTick</a></code><br />
+		A reference to the first trading day of the simulation.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Object:<a ng-click="accordion.tickOpen=true;">lastTick</a></code><br />
+		A reference to the last trading day of the simulation.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Array(<a ng-click="accordion.holdingPeriodOpen=true;">holdingPeriod</a>):holdingPeriods</code><br />
+		An array of the current simulation's <a ng-click="accordion.holdingPeriodOpen=true;">holdingPeriod</a> objects sorted in chronological order. If the current simulation is "invested" in the market in the current <a ng-click="accordion.tickOpen=true;">tick</a>, the last holding period in the array will have a buy price and <a ng-click="accordion.tickOpen=true;">tick</a>, but it will not have a sale price and <a ng-click="accordion.tickOpen=true;">tick</a>.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Float:totalsFeesPaid</code><br />
+		A running total of the sum of all transaction fees paid up to the current <a ng-click="accordion.tickOpen=true;">tick</a>.
+	</uib-accordion-group>
+	<uib-accordion-group heading="Object: holdingPeriod" is-open="accordion.holdingPeriodOpen">
+	 	<figure class="highlight">
+			<code class="language-javascript" data-lang="javascript">
+				holdingPeriod = {Float:costAmt, Float:saleAmt, Object:<a ng-click="accordion.tickOpen=true;">buyTick</a>, Object:<a ng-click="accordion.tickOpen=true;">saleTick</a>, Float:totalFeesPaid}
+			</code>
+		</figure>
+		Each holdingPeriod object represents an interval in which the simulation has bought into the market.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Float:costAmt</code><br />
+		The principle amount invested into the index at the closing price of the buy <a ng-click="accordion.tickOpen=true;">tick</a> after subtraction of all applicable fees.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Float:saleAmt</code><br />
+		The principle amount received at the closing price of the sale <a ng-click="accordion.tickOpen=true;">tick</a> after subtraction of all applicable fees. This will be null for holding periods that have not been concluded at the time of the current <a ng-click="accordion.tickOpen=true;">tick</a>.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Object:<a ng-click="accordion.tickOpen=true;">buyTick</a></code><br />
+		Reference to the <a ng-click="accordion.tickOpen=true;">tick</a> in which the index was purchased.<br/>
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Object:<a ng-click="accordion.tickOpen=true;">saleTick</a></code><br />
+		Reference to the <a ng-click="accordion.tickOpen=true;">tick</a> in which the index was sold. This will be null for holding periods that have not been concluded at the time of the current <a ng-click="accordion.tickOpen=true;">tick</a>.
+ 		<br /><br />
+		<strong>Property: </strong>
+		<code>Float:totalFeesPaid</code><br />
+		The running sum of all transaction fees paid in the course of the holding period.
+	 
+	</uib-accordion-group>
+	<uib-accordion-group heading="Object: temporalEvents" is-open="accordion.temporalEventsOpen">
+		<figure class="highlight">
+			<code class="language-javascript" data-lang="javascript">
+				temporalEvents = { function:findMinimaSince(Date), function:findMaximaSince(Date), Array(<a ng-click="accordion.tickOpen=true;">tick</a>):closingMaxima, Array(<a ng-click="accordion.tickOpen=true;">tick</a>):closingMinima}
+			</code>
+		</figure>
+		The temporalEvents object encapsulates efficient convenience methods to access current-tick-relative historical maxima and minima (peaks and troughs) of index closing prices. An example of a common use-case for this object would be when the buyTrigger method needs to know the highest price of the market in the trailing twelve months.
+		<br /><br />
+		<strong>Function: </strong>
+		<code>findMinimaSince(Date)</code><br />
+		Returns a reference to the <a ng-click="accordion.tickOpen=true;">tick</a> with the lowest closing value between the current <a ng-click="accordion.tickOpen=true;">tick</a> and the parameter date. The parameter date should be earlier than the date of the current <a ng-click="accordion.tickOpen=true;">tick</a>.
+		Example usage: <code> var historicalTroughTick = temporalEvents.findMinimaSince(date);</code>
+		<br /><br />
+		<strong>Function: </strong>
+		<code>findMaximaSince(Date)</code><br />
+		Returns a reference to the <a ng-click="accordion.tickOpen=true;">tick</a> with the highest closing value between the current <a ng-click="accordion.tickOpen=true;">tick</a> and the parameter date. The parameter date should be earlier than the date of the current <a ng-click="accordion.tickOpen=true;">tick</a>.
+		Example usage: <code> var historicalCrestTick = temporalEvents.findMaximaSince(date);</code>
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Array(<a ng-click="accordion.tickOpen=true;">tick</a>):closingMinima</code><br />
+		An array of <a ng-click="accordion.tickOpen=true;">ticks</a> in reverse chronological order of decreasing historical minima closing values. For example, the <a ng-click="accordion.tickOpen=true;">tick</a> in this array with index N is always more recent and has a higher value than the element with index N+1. The <a ng-click="accordion.tickOpen=true;">tick</a> representing the global minima closing value will be the last element in this array.
+		<br /><br />
+		<strong>Property: </strong>
+		<code>Array(<a ng-click="accordion.tickOpen=true;">tick</a>):closingMaxima</code><br />
+		An array of <a ng-click="accordion.tickOpen=true;">ticks</a> in reverse chronological order of increasing historical maxima closing values. For example, the <a ng-click="accordion.tickOpen=true;">tick</a> in this array with index N is always more recent and has a lower value than the element with index N+1. The <a ng-click="accordion.tickOpen=true;">tick</a> representing the global maxima closing value will be the last element in this array.
+	</uib-accordion-group>
+</uib-accordion>

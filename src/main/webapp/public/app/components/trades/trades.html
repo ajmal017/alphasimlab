@@ -1,0 +1,54 @@
+<div class="modal-body">
+	<small>All holding periods in the simulation starting in {{userSelections.selectedSimRef.start|date:'MMMM, yyyy'}} and ending in {{userSelections.selectedSimRef.end|date:'MMMM, yyyy'}}.</small>
+	<table class="table table-striped">
+		<thead><tr>
+		<th class="text-center">Buy Date</th>
+		<th class="text-right">Buy Price </th>
+		<th class="text-right">Purchase</th>
+		<th class="text-center">Sell Date</th>
+		<th class="text-right">Sell Price</th>
+		<th class="text-right">Sell Amount</th>
+		<th class="text-right">Distributions</th>
+		<th class="text-right">Change</th>
+		<th class="text-center">Change%</th>
+		<th class="text-right">Fees</th>
+	</tr></thead>
+	<tbody><tr ng-repeat="period in userSelections.selectedSimRef.holdingPeriods">
+		<td class="text-center">{{period.buyTick.date|date:'MM/dd/yyyy'}}</td>
+		<td class="text-right">{{period.buyTick.adjClose|currency}}</td>
+		<td class="text-right">{{period.costAmt|currency}}</td>
+		<td class="text-center">{{period.saleTick.date|date:'MM/dd/yyyy'}}</td>
+		<td class="text-right">{{period.saleTick.adjClose|currency}}</td>
+		<td class="text-right">{{period.saleAmt|currency}}</td>
+		<td class="text-right">{{period.dividendAmt|currency}}</td>
+		<td class="text-right">{{period.saleAmt-period.costAmt|currency}}</td>
+		<td class="text-center">{{(period.saleAmt - period.costAmt) / period.costAmt * 100|number:0}}%</td>
+		<td class="text-right">{{period.totalFeesPaid|currency}}</td>
+	</tr></tbody>
+	</table>
+	
+	<small>Summary of final outcomes</small>
+	<table class="table">
+	<thead><tr>
+		<th>Terminal Value</th>
+		<th>Total Change %</th>
+		<th>CAGR (nominal)</th>
+		<th>CAGR (CPI-adj)</th>
+		<th>Total Fees</th>
+		<th>Distributions</th>
+		<th>Trades</th>
+	</tr></thead>
+	<tbody><tr>
+		<td>${{userSelections.selectedSimRef.endingMoney|number:0}}</td>
+		<td>{{(userSelections.selectedSimRef.endingMoney - userSelections.selectedSimRef.holdingPeriods[0].costAmt) / userSelections.selectedSimRef.holdingPeriods[0].costAmt * 100 | number:0}}%</td>
+		<td>{{userSelections.selectedSimRef.annCompoundingRate * 100 | number:2}}%</td>
+		<td>{{cpiSimCAGR(userSelections.selectedSimRef, simulationService.strategyESE) * 100 | number:2}}%</td>
+		<td>{{userSelections.selectedSimRef.totalFeesPaid|currency}}</td>
+		<td>{{userSelections.selectedSimRef.totalDividends | currency}}</td>
+		<td>{{(userSelections.selectedSimRef.holdingPeriods.length * 2)|number:0}}</td>
+	</tr></tbody>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="$dismiss();">Close</button>
+</div>

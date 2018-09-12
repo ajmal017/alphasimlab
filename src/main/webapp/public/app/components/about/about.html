@@ -1,0 +1,183 @@
+<div ng-controller="AboutCtrl" class="section-wrapper about-container">
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-3">
+		<div class="panel panel-primary nav-panel" affix> <!-- stick -->
+			<div class="panel-heading">
+				<h3 class="panel-title">Contents</h3>
+			</div>
+			<div class="panel-body">
+				<nav>
+					<ul>
+						<li du-scrollspy="overview" ><a href="#overview" du-smooth-scroll>Overview</a></li>
+							<ul>
+							<li du-scrollspy="audience"><a href="#audience" du-smooth-scroll>Audience</a></li>
+							<li du-scrollspy="notaudience"><a href="#notaudience" du-smooth-scroll>Other Audiences</a></li>
+							</ul>
+						<li du-scrollspy="methodology"><a href="#methodology" du-smooth-scroll>Methodology</a></li>
+						<ul>
+							<li du-scrollspy="strategies"><a href="#strategies" du-smooth-scroll>Strategies</a></li>
+							<li du-scrollspy="assumptions"><a href="#assumptions" du-smooth-scroll>Assumptions</a></li>
+							<li du-scrollspy="limitations"><a href="#limitations" du-smooth-scroll>Limitations</a></li>
+						</ul>
+						<li du-scrollspy="datas"><a href="#datas" du-smooth-scroll>Data Sources</a></li>
+						<li du-scrollspy="faq"><a href="#faq" du-smooth-scroll>FAQ</a></li>
+						<li du-scrollspy="resources"><a href="#resources" du-smooth-scroll>Other Resources</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-5">
+		<section id="overview">
+			<h1 class="about-header">Overview</h1>
+			<p>The mission of the AlphaSimLab site is to provide a highly accessible platform that may be used as a source of unbiased, fully transparent, traceable facts 
+			for consumption of the mainstream retail investor relating to the impact of time and timing upon broad-market, long-term index investments. Our mission is 
+			inspired by the observance of the relative vacuum of <i>data-driven</i> and <i>data-supported</i> decision processes 
+			and financial advice in the retail investing domain about the investor's entry and exit strategies.</p>
+			<br/>
+			<p>Our collective empirical experience suggests that advice in the modern retail investment domain is saturated with poorly supported, soft "evidence", often 
+			in the form of overly broad or ambiguously defined platitudes and truisms. While we recognize that this level of shallow discourse may have some utility to the neophyte 
+			investor, in general we believe that the economic interests of the retail investor are best served through access to information. We aspire to serve the community 
+			with our own modest contribution to address the vacancy of accessible index timing analysis.</p>
+			<br/>
+			<p>AlphaSimLab does not implicitly or explicitly advocate any single approach or investment entry and exit strategy. Instead, we provide factual information through historical 
+			simulations to bring structure and dignity to the broader discussion.</p>
+		</section>
+		<section id="audience">
+			<h2 class="about-secondary">Our Audience</h2>
+			<p>We primarily seek to serve individuals who may be considered to fit the profile of the "mainstream" evidence-oriented retail investor. This profile includes lower, middle, and upper-middle income 
+			earners. Often, it describes individuals with 401k, 403b, and IRA accounts who otherwise would invest wealth without strong cognizance 
+			of the temporal implications of a wealth-building approach.</p>
+		</section>
+		<section id="notaudience">
+			<h2 class="about-secondary">Other Audiences</h2>
+			<p>While AlphaSimLab may bare superficial similarities to a "day-trading simulation" site, it is not designed as a <i>trading</i> simulation platform.
+			We do not regard the trading community as our main audience. While we do not trivialize the interest of such an audience, we do feel that the trading 
+			crowd is already very well served by a number of professional,
+			high quality commercial trading platforms. For this reason, the AlphaSimLab site deliberately excludes intra-day trading granularity as well as a 
+			number of features that often accompany such trading simulations, but would ultimately provide little value to our target audience.</p>
+		</section>
+		<section id="methodology">
+			<h1 class="about-header">Methodology</h1>
+			<p>In general, analysis of market strategies is challenging for two primary reasons. First, markets are subject to significant volatility over 
+			time as a result of pronounced cyclical macro-economic trends. A high volatility over time makes any given analysis dependent on the selection of 
+			initialization and termination dates. This means that two scenarios with dates less than three years departed can yield vastly different conclusions.</p>
+			<br/>
+			<p>A second reason that analysis of market strategies are difficult is that the economically relevant datasets that are available today tend to be less than 90
+			years in duration. While some might point out that is longer than the typical human life expectancy at birth in the United States, it is important to 
+			note that in context of macro-economic trends, this duration only yields a handful of economic boom-bust cycle observations, which tend to occur in 5-9 year intervals.
+			The brevity of historical data, combined with the ever-changing nature of our modern economy contributes to the overall uncertainty of conclusions that a single analysis may derive.</p>
+			<br/>
+			<p>AlphaSimLab addresses these two challenges by enabling the user to execute multiple temporally overlapping simulations at staggered intervals. Rather than analyzing the impact
+			of a single fixed investment time horizion, the user may look at the aggregate result over all time horizons to assess the efficacy of a strategy. Further, the 
+			AlphaSimLab will execute batteries of simulations for two strategies concurrently, so that the comparative results can be reviewed side-by-side.
+			</p>
+		</section>
+		<br/>
+		<section id="strategies">
+			<h2 class="strategies">Strategies</h2>
+			<p>In AlphaSimLab, we subject what we collectively term <i>investment strategies</i> to scrutiny over staggered time horizons. A strategy describes the methods
+			by which an investor allocates her capital either to the market, or to the United States dollar. The implementation of a strategy has two components consisting of
+			its entry and exit criteria.</p>
+			<br/>
+			<p>The AlphaSimLab simulations execute at daily granularity, exposing information about the day's high, low, volatility, and closing value. Each day, the 
+			simulation is either invested in the index, or in the US dollar. If the simulation is invested in the index, it evaluates whether the sell criteria
+			has been met. If met, then the simulation sells at the closing value of the historical trading day. If the simulation is invested in the US dollar,
+			then it likewise evaluates whether the buy criteria has been met during the trading day. If met, then it buys into the index at the day's closing value. When a
+			predetermined time horizon has elapsed, then the simulation sells out of the index if invested (no trading fee is applied to the final sale) and then
+			terminates.</p>
+			
+			<br/>
+			<a href="images/States.png" target="_new">
+				<img src="images/States.png" style="width:100%" alt="Flowchart of simulation state transitions"></img>
+			</a>
+			<p>Figure 1: State diagram of the simulation transition decision process</p>
+		</section>
+		<br/>
+		<section id="assumptions">
+			<h2 class="assumptions">Assumptions</h2>
+			<!-- investor is in the market or in currency investor does not -->
+			<p>The AlphaSimLab simulation engine is based upon several assumptions which speak directly to our beliefs about the interests of our target audience. We 
+			confine our analysis to the domain of the most common growth-oriented vehicles of wealth for the modern retail investor: the US Dollar, and the S&P 500 Index. 
+			Reduction of the retail investor's decision process to these two vehicles allows us to frame the investor's dilemma as a stark binary decision at any 
+			given point in time. In brief, this paradigm refines the operative question to the following: "which among the two vehicles of wealth is more opportune at 
+			this point in time?"</p>
+			<br/>
+			<p>The attentive reader may note that in many cases, reduction of the problem to a binary decision process between the USD and S&P500 large-cap benchmark represents an 
+			oversimplification of the typical US-based retail investor's tax-advantaged investment vehicle options. These options often also include several varieties of bond funds 
+			by category of debt and debtor, ETFs weighted among small, middle and large capitalization equities as well as by sector, and also by assorted blends of the 
+			aforementioned. All this, of course, is not to mention the availability of thousands of individual issues and bonds.</p>
+			<br/>
+			<p>The breadth and variety of investment vehicles is both a blessing and a curse to the retail investor. There is undoubtedly enormous benefit to be gained through
+			analysis of capitalization, sector, individual equities, and debt security. However, the time commitment and availability of information resources necessary to exercise 
+			ongoing due diligence upon these issues is often not characteristic of the typical investor. In short, we believe that the investor of the profile that AlphaSimLab aims
+			to serve is largely interested in the performance of large-cap weighted ETFs, for which we apply the S&P 500 as proxy. Likewise, we observe the that primary source
+			of income of the retail investor is denominated in the US Dollar.</p>
+			<br/>
+			<p>In stark contrast to the selection of wealth vehicles, we assert that the timing of transition between wealth vehicles is a challenge that is unavoidable and 
+			homogeneous among virtually all retail investors. This makes analysis of the entry and exit strategy relevant to every investor.</p>
+		</section>
+		<br/>
+		<section id="limitations">
+			<h2 class="limitations">Limitations</h2>
+			<p><b>Dividends: </></b>The S&P 500 index dividend data originates from the excellent dividend dataset compiled by Robert Shiller, which is <a href="#datas" du-smooth-scroll>referenced below</a>. The source 
+			dataset is presented at an annual granularity. In order to apply the dividend at the trading-day granularity, the annual dividend has been equally apportioned across all 
+			trading days in the year. This has two notable impacts that may cause the results of the simulation to deviate from those experienced by a hypothetical shareholder of an 
+			index-representative basket of stocks.</p>
+			<br/>
+			<p>The dividend ex-dates of the individual underlying equities in the index are neither uniformly distributed over the course of the year, nor are they equivalent in amount.
+			This means that the dividend distributions calculated in any given holding period of the simulation may resolve to more or less than the actual dividend experienced by the hypothetical 
+			basket-holder. Over a large number of trading days, the aggregate impact of the experienced deviation should be negligible.</p>
+			<br/>
+			<p>When applied to a dividend re-investment scheme, (DRP/DRIP) the dividend amount is added to the principle investment amount immediately upon distribution in the simulation. 
+			Modern investors typically employ an ETF to track the performance of a broad index. Most ETFs execute distributions quarterly. An ETF-holder would experience a quarterly 
+			compounding DRP, whereas the simulated investor experiences a continuously compounding DRP.</p>
+			<br/>
+			<p><b>Time horizons: </b>The AlphaSimLab simulation engine employs a user-specified duration parameter to calibrate the length of its individual simulations, and a user-specified
+			frequency parameter to calibrate the interval at which the simulations are staggered. The available S&P 500 index data is a discrete set beginning at January 2, 1950, and ending on
+			December 28, 2015. In recognition that two simulations of inconsistent length cannot easily be compared in a meaningful way, the engine declines to execute simulations where the
+			ending date would precede the earliest date for which market data is available. (Jan 2, 1950) Likewise, the engine will decline to execute simulations where the end date would 
+			exceed the latest date for which market data is available. (Dec 28, 2015)</p>
+			<br/>
+			<p>As a result, the earliest dates and latest dates for which data are available are under-sampled and under-represented in the aggregate calculations relative to the interior dates.
+			For example, suppose the user has specified a 15-year simulation duration, and a one-year frequency. In this scenario, the engine would execute one simulation encompassing
+			the year 2015, ten simulations encompassing the year 2005, and 15 simulations encompassing the year 2000.</p>
+			<br/>
+			<p>Consequentially, aggregate measurements presented on the dashboard are weighted to the performance of the interior years of the dataset to the degree afforded by the user-specified
+			runtime parameters.</p>
+		</section>
+		<br/>
+		<section id="datas">
+			<h1 class="about-header">Data Sources</h1>
+			<p><b>S&P 500 Index</b></p>
+			<p>The historical daily S&P500 dataset is sourced from <a href="http://www.finance.yahoo.com">Yahoo! Finance</a>. This dataset begins on January 2nd, 1950 and ends on December 28th, 2015. Data retrieved on 12/31/2016.</p>
+			<br/>
+			<p><b>CPI</b></p>
+			<p>Historical annual CPI data is sourced from FRED at the <a href="https://research.stlouisfed.org/fred2/categories/9">St. Louis Federal Reserve website</a>. Data retrieved on 2/12/2016.</p>
+			<br/>
+			<p><b>S&P 500 dividend</b></p>
+			<p>Compiled historical annual dividend data is sourced from <a href="http://www.econ.yale.edu/~shiller/data.htm">Robert Shiller's website</a>. Data retrieved on 2/12/2016.</p>
+			
+		</section>
+		<section id="faq">
+			<h1 class="about-header">Frequently Asked Questions</h1>
+			<ul>
+				<li><p><b>Q:</b> Why does AlphaSimLab only support indices? I want to run my trading strategy against individual stocks.</p></li>
+				<li><p><b>A:</b> We are strongly focused on serving the needs of individuals who fit the profile of our primary audience: the evidence-oriented mainstream retail investor. In general, we believe that research on individual stocks falls outside the scope and resources of the typical mainstream investor. Further, the generalizability of conclusions that may be derived from a trading strategy may be suspect where applied to the historical performance of an individual equity issue.</p></li>
+				<br/>
+				<li><p><b>Q:</b> Are dollar amounts, as presented, adjusted for inflation?</p></li>
+				<li><p><b>A:</b> Inflation is not accounted for in the simulation model outside of the CPI-adjusted CAGR, calculated ex-post per simulation. All dollar amounts and changes over time should be considered as nominal values.</p></li>
+				<br/>
+				<li><p><b>Q:</b> Does the Yahoo! Finance S&P 500 index data include or exclude dividend distributions?</p></li>
+				<li><p><b>A:</b> The S&P 500 index data provided by Yahoo! Finance does not include dividend distributions. More on the methodology of how dividends are calculated can be read in the <a href="#limitations" du-smooth-scroll>limitations section.</a></p></li>
+			</ul>
+		</section>
+		<section id="resources">
+			<h1 class="about-header">Other Resources</h1>
+			<br/><br/><br/><br/><br/><br/>
+		</section>
+	</div>
+	<div class="col-md-2"></div>
+</div> 
+</div>

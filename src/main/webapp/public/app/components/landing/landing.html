@@ -1,0 +1,91 @@
+<div ng-controller="LandingCtrl">
+	<scroll-chart></scroll-chart>
+	<div class="landing-outer">
+		<div class="landing-inner" style="text-align:center">
+			<div class="slide-left" ng-repeat="item in presentationText" style="text-align:center">
+				<h1><div ng-bind-html="item.text" style="text-align:center"></div></h1>
+			</div>
+		</div>
+		<div class="center-block landing-getstarted">
+			<button class="btn btn-primary" 
+			ng-click="$location.path('dashboard');"
+			popover-title="{{tutorialService.getPData().title}}"
+			uib-popover-template="tutorialService.template.url"
+			popover-trigger="none" 
+			popover-is-open="tutorialService.isPopoverOpen(0)"
+			popover-placement="{{tutorialService.getPData().position}}"
+			popover-append-to-body="true"><h3>Get Started</h3></button>
+		</div>
+	</div>
+	<!-- 
+	<div class="landing-strip dark row">
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-2 text-center">
+			<h3>Simulate Return</h3>
+			<div class="text-center content">Execute hundreds of simulations spanning decades of market index data with ease</div>
+			<div class="text-center faicon-green"><i class="fa fa-signal"></i></div>
+		</div>
+		<div class="col-md-2 text-center">
+			<h3>Visualize Risk</h3>
+			<div class="text-center content">Achieve instant perspective on the variability of timing strategies through intuitive graphics</div>
+			<div class="text-center faicon-red"><i class="fa fa-pie-chart"></i></div>
+		</div>
+		<div class="col-md-2 text-center">
+			<h3>Compare Results</h3>
+			<div class="text-center content">Get the lowdown on the relative statistical performance between any pair of strategies</div>
+			<div class="text-center faicon-blue"><i class="fa fa-balance-scale"></i></div>
+		</div>
+		<div class="col-md-3">
+		</div>
+	</div>
+	 -->
+	 <div class="landing-strip dark">
+		 <div class="dark row">
+			<div class="col-md-3">
+			</div>
+			<div class="col-md-2 text-center">
+				<h3>Simulate Return</h3>
+			</div>
+			<div class="col-md-2 text-center">
+				<h3>Visualize Risk</h3>
+			</div>
+			<div class="col-md-2 text-center">
+				<h3>Compare Results</h3>
+			</div>
+			<div class="col-md-3">
+			</div>
+		</div>
+		<div class="dark row">
+			<div class="col-md-3">
+			</div>
+			<div class="col-md-2 text-center">
+				<div class="text-center content">Execute hundreds of simulations spanning decades of market index data with ease</div>
+			</div>
+			<div class="col-md-2 text-center">
+				<div class="text-center content">Achieve instant perspective on the variability of timing strategies through intuitive graphics</div>
+			</div>
+			<div class="col-md-2 text-center">
+				<div class="text-center content">Get the lowdown on the relative statistical performance between any pair of strategies</div>
+			</div>
+			<div class="col-md-3">
+			</div>
+		</div>
+		<div class="dark row">
+			<div class="col-md-3">
+			</div>
+			<div class="col-md-2 text-center">
+				<div class="text-center faicon-green"><i class="fa fa-signal"></i></div>
+			</div>
+			<div class="col-md-2 text-center">
+				<div class="text-center faicon-red"><i class="fa fa-pie-chart"></i></div>
+			</div>
+			<div class="col-md-2 text-center">
+				<div class="text-center faicon-blue"><i class="fa fa-balance-scale"></i></div>
+			</div>
+			<div class="col-md-3">
+			</div>
+		</div>
+	</div>
+	<div class="landing-strip light"></div>
+</div> 

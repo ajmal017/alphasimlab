@@ -1,0 +1,32 @@
+<div ng-controller="NavCtrl">
+<nav class="navbar navbar-default">
+	<!-- Note: set the initial collapsed state and change it when clicking -->
+	<a ng-init="navCollapsed=false" ng-click="navCollapsed = !navCollapsed" class="btn btn-navbar">
+	   <span class="icon-bar"></span>
+	   <span class="icon-bar"></span>
+	   <span class="icon-bar"></span>
+	</a>
+	<a class="navbar-brand" href=".">
+		<div class="logo header">AlphaSimLab</div>
+	</a>
+	<ul class="nav navbar-nav navbar-right">
+		<li><a href="dashboard" ng-class="{'navbar-active':$location.path()=='/dashboard'}"><h4><i class="fa fa-area-chart"></i> Sim-Dashboard</h4></a></li>
+		<li><a href="laboratory" ng-class="{'navbar-active':$location.path()=='/laboratory'}"><h4><i class="fa fa-flask"></i> Laboratory</h4></a></li>
+		<li><a href="about" ng-class="{'navbar-active':$location.path()=='/about'}"><h4><i class="fa fa-info-circle"></i> About</h4></a></li>
+		<li>
+			<a href="#" 
+			ng-click="tutorialService.tutorialButtonClick();" 
+			ng-class="{'navbar-active':tutorialService.isTutorialActive}"
+			
+				popover-title="Why hello there"
+				uib-popover-template="tutorialService.welcomeBubble.url"
+				popover-trigger="none" 
+				popover-is-open="tutorialService.welcomeBubble.isPresentingNewUserBubble"
+				popover-placement="bottom"
+				popover-append-to-body="true"> <!-- uib-popover-template="tutorialService.template.url" -->
+				<h4><i class="fa fa-question-circle"></i> Tutorial</h4>
+			</a>
+		</li>
+	</ul>
+</nav>
+</div> 

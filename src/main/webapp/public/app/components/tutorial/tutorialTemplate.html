@@ -1,0 +1,18 @@
+<div class="tutorial-popover">
+	<div><div ng-bind-html="tutorialService.getPData().body"></div></div>
+	<div class="row">
+		<div class="col-xs-6 text-left">
+			<button class="btn btn-primary btn-sm" 
+				ng-show="tutorialService.hasPrevious();"
+				ng-click="tutorialService.previous();"><i class="fa fa-angle-left"></i>  Previous</button>
+		</div>
+		<div class="col-xs-6 text-right">
+			<button class="btn btn-primary btn-sm" 
+				ng-hide="!tutorialService.hasNext();"
+				ng-click="tutorialService.next();">Next  <i class="fa fa-angle-right"></i></button>
+			<button class="btn btn-primary btn-sm" 
+				ng-show="!tutorialService.hasNext();"
+				ng-click="tutorialService.tutorialButtonClick();">Finish  <i class="fa fa-flag-checkered"></i></button>
+		</div>
+	</div>
+</div>
