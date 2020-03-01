@@ -1,4 +1,10 @@
-<img src="./docs/images/asl-landing.png" width="200"><img src="./docs/images/asl-dashboard-chart.png" width="200"><img src="./docs/images/asl-dashboard-results.png" width="200"><img src="./docs/images/asl-laboratory.png" width="200">
+<img src="./docs/images/asl-landing.png" width="200">
+
+<img src="./docs/images/asl-dashboard-chart.png" width="200">
+
+<img src="./docs/images/asl-dashboard-results.png" width="200">
+
+<img src="./docs/images/asl-laboratory.png" width="200">
 
 # AlphaSimLab
 > A javascript client-side application to facilitate back-testing for market timing strategies.
