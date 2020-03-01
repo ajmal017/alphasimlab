@@ -1,8 +1,7 @@
 angular.module("ALApp",["ngRoute","ui.bootstrap", "ui.bootstrap.tabs", "ngAnimate","angular-rpi","ui.codemirror","duScroll"])
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
 	$locationProvider.html5Mode({
-		enabled: true,
-		requireBase: false
+		enabled: true
 	});
 	$routeProvider
 	.when("/dashboard", {
