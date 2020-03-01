@@ -1,6 +1,9 @@
 angular.module("ALApp",["ngRoute","ui.bootstrap", "ui.bootstrap.tabs", "ngAnimate","angular-rpi","ui.codemirror","duScroll"])
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
-	$locationProvider.html5Mode(true);
+	$locationProvider.html5Mode({
+		enabled: true,
+		requireBase: false
+	});
 	$routeProvider
 	.when("/dashboard", {
 		templateUrl: "app/components/dashboard/dashboard.html",
@@ -41,6 +44,7 @@ angular.module("ALApp",["ngRoute","ui.bootstrap", "ui.bootstrap.tabs", "ngAnimat
 	if (ieVersion && ieVersion < 11) {
 		$location.path('/unsupported');
 	}
+	
 })
 /* Main Navigation */
 .controller("primaryCtrl", function($scope, $route, modelService){
