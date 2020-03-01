@@ -45,6 +45,6 @@ angular.module("ALApp",["ngRoute","ui.bootstrap", "ui.bootstrap.tabs", "ngAnimat
 /* Main Navigation */
 .controller("primaryCtrl", function($scope, $route, modelService){
 	$scope.credentials = modelService.credentials;
-	$scope.navBar = {url: "app/components/navbar/navbar.html"};
-	$scope.footer = {url: "app/components/footer/footer.html"};
+	$scope.navBar = {url: "AlphaSimLab/app/components/navbar/navbar.html"};
+	$scope.footer = {url: "AlphaSimLab/app/components/footer/footer.html"};
 });
