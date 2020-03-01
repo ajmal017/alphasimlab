@@ -38,7 +38,7 @@ angular.module("ALApp")
 		//$uibModalStack.dismissAll(); //Hide the modal dialog
 		$scope.modalInstance.opened.then(function(){
 			$scope.modalInstance.dismiss();
-		});
+		}, function(err){console.dir(err);});
 		
 		//Click event for table
 		$scope.simRowClick = function(simIdx){
@@ -65,7 +65,7 @@ angular.module("ALApp")
 			//Calculate the annual compounding rate: r = ln(A/P) / t
 			return Math.log(cpiAdjEndingMoney / ese.props.initialMoney) / ese.props.simulationPeriod;
 		};
-	});
+	}, function(err){console.dir(err);});
 	
 	/****************************************************
 	 * Call this to recalculate the simulation

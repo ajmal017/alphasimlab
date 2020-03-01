@@ -55,13 +55,13 @@ angular.module("ALApp")
 	 *******************************************/
 	this.reloadData = function(){
 		return fileAjaxService.getFile(self.selectedFileName)
-		.success(function(response){
+		.then(function(response){
 			//Empty the array
 			self.data.length = 0;
 			self.subSampledData.length = 0;
 			
 			//Split file by line
-			response.split("\n").forEach(function(val, idx){
+			response.data.split("\n").forEach(function(val, idx){
 				//Split line by field
 				var fields = val.split(",",9);
 				//Build one object per day
@@ -107,7 +107,7 @@ angular.module("ALApp")
 				}
 			});
 
-		});
+		}, function(err){console.dir(err);});
 	}
 	
 	/*******************************************
@@ -115,9 +115,9 @@ angular.module("ALApp")
 	 *******************************************/
 	this.loadCPI = function(){
 		return fileAjaxService.getFile(self.cpiFileName)
-		.success(function(response){
+		.then(function(response){
 			self.cpi.length = 0;
-			response.split("\n").forEach(function(val, idx){
+			response.data.split("\n").forEach(function(val, idx){
 				var fields = val.split(",",2);
 				self.cpi.push({
 					date	: 	new Date(Date.parse(fields[0])),
@@ -129,7 +129,7 @@ angular.module("ALApp")
 				if (a.date > b.date) return 1;
 				return 0;
 			});
-		});
+		}, function(err){console.dir(err);});
 	}
 
 	/*******************************************

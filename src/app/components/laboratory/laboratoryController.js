@@ -102,7 +102,7 @@ angular.module("ALApp")
 					$scope.compileResults.message = $sce.trustAsHtml("There was a " + err.name + " in the buyTrigger compilation: \"" + err.message +"\"");
 					$scope.compileResults.console = err.stack;
 				}
-			});
+			}, function(err){console.dir(err);});
 		}
 		
 		//Provide compilation status feedback
