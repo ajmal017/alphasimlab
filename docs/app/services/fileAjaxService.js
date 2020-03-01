@@ -10,7 +10,7 @@ angular.module("ALApp")
 	this.getFile = function(fileName){
 		return $http({
 		    method: 'GET',
-		    url: "AlphaSimLab/data/" + fileName
+		    url: "data/" + fileName
 		});
 	};
 }); 
