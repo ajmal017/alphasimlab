@@ -1,0 +1,173 @@
+.axis path,
+
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+/*
+.axis .minor line {
+  stroke: #777;
+  stroke-dasharray: 2,2;
+}
+*/
+
+.area {
+  fill: steelblue;
+}
+
+.chart {
+    background: #eee;
+    padding: 3px;
+}
+
+/* Used as a handle for zoom */
+.overlay {
+    stroke-width: 0px;
+    fill-opacity: 0;
+}
+
+.chart div {
+  width: 0;
+  transition: all 1s ease-out;
+  -moz-transition: all 1s ease-out;
+  -webkit-transition: all 1s ease-out;
+}
+
+.chart div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 5px;
+  color: white;
+  box-shadow: 2px 2px 2px #666;
+}
+
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+.grid path {
+      stroke-width: 0;
+}
+.navigator .viewport {
+    stroke: grey;
+    fill: black;
+    fill-opacity: 0.2;
+}
+
+text{
+	font: 10px sans-serif;
+}
+
+
+.transaction{
+	stroke-width: 3;
+	fill: none;
+	cursor: pointer;
+}
+.buy{
+	stroke: lime;
+	fill: lime;
+}
+.sell{
+	stroke: red;
+	fill: red;
+}
+
+
+/**********************************
+* HISTOGRAM
+**********************************/
+
+
+.d3-tip {
+	line-height: 1;
+	font-weight: bold;
+	padding: 12px;
+	background: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+	box-sizing: border-box;
+	display: inline;
+	font-size: 9px;
+	width: 100%;
+	line-height: 1;
+	color: rgba(0, 0, 0, 0.8);
+	content: "\25BC";
+	position: absolute;
+	text-align: center;
+}
+
+.d3-tip.buy-tip {
+	font-weight: normal;
+	background: rgba(0, 175, 0, 0.8);
+}
+
+.d3-tip.buy-tip:after {
+	color: rgba(0, 175, 0, 0.8);
+}
+
+.d3-tip.sell-tip {
+	font-weight: normal;
+	background: rgba(255, 0, 0, 0.8);
+}
+
+.d3-tip.sell-tip:after {
+	color: rgba(255, 0, 0, 0.8);
+}
+
+
+
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+	margin: -1px 0 0 0;
+	top: 100%;
+	left: 0;
+}
+
+.bar rect {
+	fill: steelblue;
+	shape-rendering: crispEdges;
+}
+.bar rect:hover{
+	fill: rgba(0,0,0,.8);
+}
+.axis path, .axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+/**********************************
+* Scatter plot
+**********************************/
+.tick line{
+	opacity: 0.2;
+}
+.dot{
+	opacity: 0.5;
+}
+.green-dot{
+	color: #00FF00;
+}
+.red-dot{
+	color: #FF0000;
+}
+
+
+/**********************************
+* SCROLLING LINE PLOT
+**********************************/
+.plot-shroud {
+	color:black;
+	opacity:0.6;
+}
+

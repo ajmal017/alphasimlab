@@ -1,0 +1,19 @@
+
+<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title">Compilation <span ng-show="compileResults.isSuccess">success</span><span ng-show="!compileResults.isSuccess">error</span></h4>
+	</div>
+	<div class="modal-body">
+		<b><div ng-bind-html="compileResults.message"></div></b>
+		<div class="well" style="overflow-x: auto; overflow-y: auto;">
+    		{{compileResults.console}}
+    	</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary btn-sm"
+			ng-click="modalInstance.close();">Close</button>
+		<button class="btn btn-primary btn-sm" 
+			ng-show="compileResults.isSuccess"
+			ng-click="sendToDashboard();"><i class="fa fa-cogs"></i> Run on dashboard</button>
+	</div>
+</div><!-- /.modal-content -->

@@ -1,0 +1,169 @@
+<div ng-controller="LaboratoryCtrl" class="section-wrapper">
+<div class="row">
+	<!-- Left Column -->
+	<div class="col-md-3">
+		<div class="panel panel-primary">
+			<div class="panel-heading"
+				popover-title="{{tutorialService.getPData().title}}"
+				uib-popover-template="tutorialService.template.url"
+				popover-trigger="none" 
+				popover-is-open="tutorialService.isPopoverOpen(0)"
+				popover-placement="{{tutorialService.getPData().position}}"
+				popover-append-to-body="true">
+				<h3 class="panel-title">Strategies</h3>
+			</div>
+			<div class="panel-body table-panel-pad">
+				<table class="table no-bottom-margin">
+					<thead><tr>
+						<th class="col-xs-6">Strategy name</th>
+						<th class="col-xs-3">Risk rating</th>
+						<th class="col-xs-3">Return rating</th>
+					</tr></thead>
+				</table>
+				<div class="y-scroll y-scroll-screen300">
+					<table class="table table-hover table-pointer table-striped">
+						<tbody>
+							<tr ng-repeat="strategy in strategies" 
+								ng-click="stratRowClick($index);" 
+								ng-class="{'row-active':strategy == userSelections.strategy}">
+								<td class="col-xs-6">{{strategy.name}} 
+									<span class="glyphicon glyphicon-cog" aria-hidden="true" ng-show="strategy.isEditable"></span>
+									<span class="glyphicon glyphicon-eye-open" aria-hidden="true" ng-show="!strategy.isEditable"></span>
+								</td>
+								<td class="col-xs-3">
+									<uib-rating 
+										ng-model="strategy.riskRating"
+										max="5"
+										readonly="true"></uib-rating>
+								</td>
+								<td class="col-xs-3">
+									<uib-rating 
+										ng-model="strategy.returnRating"
+										max="5"
+										readonly="true"></uib-rating>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div> <!-- /panel body -->
+			<div class="panel-footer">
+				<button class="form-control btn btn-primary" 
+					ng-click="newStrategyClick();"
+					popover-title="{{tutorialService.getPData().title}}"
+					uib-popover-template="tutorialService.template.url"
+					popover-trigger="none" 
+					popover-is-open="tutorialService.isPopoverOpen(1)"
+					popover-placement="{{tutorialService.getPData().position}}"
+					popover-append-to-body="true">Create new strategy</button>
+			</div>
+		</div> <!-- /panel -->
+	</div> <!-- /col LEFT -->
+	<div class="col-md-6">
+		<!-- INSTRUCTIONS -->
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<h3 class="col-xs-6 panel-title">Instructions</h3>
+					<span class="col-xs-6 text-right">[<a href="#" ng-click="userSelections.hideInstructions=true" ng-show="!userSelections.hideInstructions">hide</a><a href="#" ng-click="userSelections.hideInstructions=false" ng-show="userSelections.hideInstructions">show</a>]</span>
+				</div>
+			</div>
+			<div class="panel-body" ng-show="!userSelections.hideInstructions">
+				<p>Here in the laboratory you can inspect the description and implementation details of investing strategies.
+				With just a little bit of javascript know-how, you can also define your own strategies to execute and analyze in the dashboard.</p>
+				<br/>
+				<b>How it works</b>
+				<p>On any given trading day, the simulation is either invested in the index, or not. In order to evaluate the buying and selling decisions specified by the strategy, the simulation engine iterates over each trading day in history sequentially. On each day, the engine executes one of two methods to determine what it should do with its money.
+				In the current trading day (or 'tick'), if the simulation is in a period where it is <i>out</i> of the index, then it evaluates the 'buy trigger' method. If the 'buy trigger' method returns true, then the simulation will buy into the index at the close price of the current tick.</p>
+				<br/>
+				<p>Likewise, if the simulation is currently invested in the index, it executes the 'sell' method on each tick. When the 'sell trigger' method evaluates to true, then the simulation sells all holdings at the close price of the current tick.</p>
+				<br/>
+				<b>Getting started</b>
+				<p>Click on a strategy name in the left-hand column to observe how it is implemented. To author your own strategy, use the "create new" button in the bottom left.</p>
+			</div>
+		</div>
+		<!-- INSTRUCTIONS -->
+		<div class="panel panel-primary">
+			<div class="panel-heading"
+				popover-title="{{tutorialService.getPData().title}}"
+				uib-popover-template="tutorialService.template.url"
+				popover-trigger="none" 
+				popover-is-open="tutorialService.isPopoverOpen(2)"
+				popover-placement="{{tutorialService.getPData().position}}"
+				popover-append-to-body="true">
+				<h3 class="panel-title">Strategy Details</h3>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-6">
+						<small>Strategy name</small>
+						<input type="text" 
+							class="form-control" 
+							ng-model="userSelections.strategy.name"
+							ng-disabled="!userSelections.strategy.isEditable"></input>
+					</div>
+					<div class="col-sm-3">
+						<small>Risk</small>
+						<div>
+						<uib-rating 
+							ng-model="userSelections.strategy.riskRating"
+							style="font-size:30px"
+							max="5" 
+							on-hover="hoveringOver(value)" 
+							on-leave="overStar = null" 
+							readonly="!userSelections.strategy.isEditable"></uib-rating>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<small>Return</small>
+						<div>
+						<uib-rating 
+							ng-model="userSelections.strategy.returnRating"
+							style="font-size:30px"
+							max="5" 
+							on-hover="hoveringOver(value)" 
+							on-leave="overStar = null" 
+							readonly="!userSelections.strategy.isEditable"></uib-rating>
+						</div>
+					</div>
+				</div>
+				<small>Description of the strategy</small>
+				<textarea class="form-control" rows="3" ng-model="userSelections.strategy.description" ng-disabled="!userSelections.strategy.isEditable"></textarea>
+				<br/>
+				<small>Buy trigger logic</small>
+				<ui-codemirror ui-codemirror-opts="editorOptions" ui-codemirror="{onLoad:codemirrorLoaded}" ng-model="userSelections.buyTriggerMethodText"></ui-codemirror>
+				<br/>
+				<small>Sell trigger logic</small>
+				<ui-codemirror ui-codemirror-opts="editorOptions" ui-codemirror="{onLoad:codemirrorLoaded}" ng-model="userSelections.sellTriggerMethodText"></ui-codemirror>
+				<br/>
+				<button class="form-control btn btn-primary" 
+					ng-click="compileStrategyClick();" 
+					ng-disabled="!userSelections.strategy.isEditable"
+					popover-title="{{tutorialService.getPData().title}}"
+					uib-popover-template="tutorialService.template.url"
+					popover-trigger="none" 
+					popover-is-open="tutorialService.isPopoverOpen(3)"
+					popover-placement="{{tutorialService.getPData().position}}"
+					popover-append-to-body="true">Validate and compile</button>
+			</div> <!-- /panel body -->
+		</div> <!-- /instructions -->
+	</div>  <!-- /col CENTER -->
+	<!-- API Documentation -->
+	<div class="col-md-3">
+		<div class="panel panel-primary navbar"> <!-- navbar for margin:0 -->
+			<div class="panel-heading">
+				<h3 class="panel-title"
+				popover-title="{{tutorialService.getPData().title}}"
+				uib-popover-template="tutorialService.template.url"
+				popover-trigger="none" 
+				popover-is-open="tutorialService.isPopoverOpen(4)"
+				popover-placement="{{tutorialService.getPData().position}}"
+				popover-append-to-body="true">API Reference</h3>
+			</div>
+			<div class="panel-body table-panel-pad">
+				<ng-include src="apiReference.url"></ng-include>
+			</div>
+		</div>
+	</div>
+</div> <!-- /row -->
+</div> 

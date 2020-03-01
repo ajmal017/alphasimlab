@@ -1,0 +1,446 @@
+<div class="section-wrapper">
+<div class="row">
+	<!-- Left Column -->
+	<div class="col-md-3">
+		<div class="panel panel-primary">
+			<div class="panel-heading"
+				popover-title="{{tutorialService.getPData().title}}"
+				uib-popover-template="tutorialService.template.url"
+				popover-trigger="none" 
+				popover-is-open="tutorialService.isPopoverOpen(0)"
+				popover-placement="{{tutorialService.getPData().position}}"
+				popover-append-to-body="true">
+				<h3 class="panel-title">Simulations</h3>
+			</div>
+			<div class="panel-body table-panel-pad">
+				<uib-tabset justified="true">
+					<uib-tab heading="Parameters" 
+						active="uiTabs[0].active"
+						popover-title="{{tutorialService.getPData().title}}"
+						uib-popover-template="tutorialService.template.url"
+						popover-trigger="none" 
+						popover-is-open="tutorialService.isPopoverOpen(1)"
+						popover-placement="{{tutorialService.getPData().position}}"
+						popover-append-to-body="true">
+						<div class="form-row">
+							<label>The vehicle for your wealth is...</label>
+							<div class="input-group">
+								<span class="input-group-addon"></span>
+								<select class="form-control" 
+									ng-model="modelService.selectedFileName">
+									<option value="SP500_YF.csv">S&P 500 Index</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row">
+							<label>Employ this investment holding strategy...</label>
+							<div class="input-group">
+								<span class="input-group-addon"> </span>
+								<select class="form-control" 
+									ng-options="strat as strat.name for strat in simulationService.strategies track by strat.id"
+									ng-model="simulationService.stratStrategy">
+								</select>
+								<span class="input-group-addon" 
+									uib-popover="{{simulationService.stratStrategy.name}}: {{simulationService.stratStrategy.description}}" 
+									popover-trigger="mouseenter" 
+									popover-placement="right"
+									popover-append-to-body="true">
+										<span class="glyphicon glyphicon-comment" aria-hidden="true">
+								</span></span>
+							</div>
+						</div>
+						
+						<div class="form-row">
+							<label>Compare to the performance of this holding strategy...</label>
+							<div class="input-group">
+								<span class="input-group-addon"> </span>
+								<select class="form-control" 
+									ng-options="strat as strat.name for strat in simulationService.strategies track by strat.id"
+									ng-model="simulationService.stratBaseline">
+								</select>
+								<span class="input-group-addon" 
+									uib-popover="{{simulationService.stratBaseline.name}}: {{simulationService.stratBaseline.description}}" 
+									popover-trigger="mouseenter" 
+									popover-placement="right"
+									popover-append-to-body="true">
+										<span class="glyphicon glyphicon-comment" aria-hidden="true">
+								</span></span>
+							</div>
+						</div>
+					
+						<div class="form-row">
+							<label>Start a separate trading simulation at the beginning of each...</label>
+							<div class="input-group">
+								<span class="input-group-addon"> </span>
+								<select class="form-control" 
+									ng-model="simulationService.props.executionFrequency">
+									<option value="month">month</option>
+									<option value="quarter">quarter</option>
+									<option value="year">year</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row">
+							<label>Run every simulation with an investment horizon of...</label>
+							<div class="input-group">
+								<span class="input-group-addon"> </span>
+								<select class="form-control" 
+									ng-model="simulationService.props.simulationPeriod">
+									<option value="10">10 years</option>
+									<option value="15">15 years</option>
+									<option value="20">20 years</option>
+									<option value="25">25 years</option>
+									<option value="30">30 years</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row">
+							<label class="text-left">Each simulation begins trading with...</label>
+							<div class="input-group">
+								<span class="input-group-addon">$</span>
+								<input class="form-control" 
+									placeholder="example: 1000.00"
+									ng-model="simulationService.props.initialMoney"
+									type="text" 
+									value="1000.00"
+									min="0" 
+									max="1000000"
+									step="100.00" 
+									data-number-to-fixed="2" 
+									data-number-stepfactor="100" 
+									class="form-control currency"></input>
+								
+								<span class="input-group-addon">
+									DRP 
+									<input id="drip" type="checkbox" class="" ng-model="simulationService.props.isDrip"></input>
+								</span>
+								<span class="input-group-addon" 
+									uib-popover="A dividend reinvestment plan (DRP) causes all distributions to be added to the investment principle." 
+									popover-trigger="mouseenter" 
+									popover-placement="right"
+									popover-append-to-body="true">
+										<span class="glyphicon glyphicon-comment" aria-hidden="true">
+								</span></span>
+							</div>
+						</div>
+						<div class="form-row">
+							<label>Incur a fixed transaction fee on each trade of...</label>
+							<div class="input-group">
+								<span class="input-group-addon">$</span>
+								<input class="form-control" 
+									placeholder="example: 9.99"
+									ng-model="simulationService.props.scalarTransactionCost"
+									type="text" 
+									value="0"
+									min="0" 
+									step="1" 
+									data-number-to-fixed="2"
+									class="form-control currency"></input>
+								<span class="input-group-addon" 
+									uib-popover="Each transaction fee is applied once on a purchase of equities, and again on the sale. The transaction fee is not applied to the terminal sale at the end of the simulation period." 
+									popover-trigger="mouseenter" 
+									popover-placement="right"
+									popover-append-to-body="true">
+										<span class="glyphicon glyphicon-comment" aria-hidden="true">
+								</span></span>
+							</div>
+						</div>
+						<div class="form-row">
+							<label>Incur a percentage-based transaction fee on each trade of...</label>
+							<div class="input-group">
+								<input class="form-control"
+									placeholder="example: 2.5"
+									ng-model="simulationService.props.percentageTransactionCost"
+									type="text" 
+									value="0"
+									min="0" 
+									max="100"
+									step="1" 
+									data-number-to-fixed="2"
+									class="form-control currency"></input>
+								<span class="input-group-addon">%</span>
+							</div>
+						</div>
+						<div class="form-row">
+							<button type="button" class="btn btn-primary btn-md" style="width:100%;" ng-click="simulationRefresh();">
+								<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Run simulations
+							</button>
+						</div>
+					</uib-tab>
+					<uib-tab heading="Results" 
+						active="uiTabs[1].active"
+						popover-title="{{tutorialService.getPData().title}}"
+						uib-popover-template="tutorialService.template.url"
+						popover-trigger="none" 
+						popover-is-open="tutorialService.isPopoverOpen(2)"
+						popover-placement="{{tutorialService.getPData().position}}"
+						popover-append-to-body="true">
+						<div style="overflow: hidden;">
+							<table class="table no-bottom-margin table-header-scroll">
+								<thead><tr>
+									<th class="col-xs-2">Start</th>
+									<th class="col-xs-2 sw-hide-1480">End</th>
+									<th class="col-xs-2 sw-hide-1210">Value</th>
+									<th class="col-xs-2">Change</th>
+									<th class="col-xs-2 sw-hide-1680">Fees</th>
+									<th class="col-xs-2">Trades</th>
+								</tr></thead>
+							</table>
+							<div class="y-scroll y-scroll-screen170">
+								<table class="table table-hover table-pointer table-striped">
+									<tbody>
+										<tr ng-repeat="sim in simulationService.strategyESE.simulationsResult" 
+											ng-click="simRowClick($index);" 
+											ng-class="{'row-active':sim == userSelections.selectedSimRef}">
+											<td class="col-xs-2">{{sim.start|date:'MM/yyyy'}}</td>
+											<td class="col-xs-2 sw-hide-1480">{{sim.end|date:'MM/yyyy'}}</td>
+											<td class="col-xs-2">${{sim.endingMoney|number:0}}</td>
+											<td class="col-xs-2">{{(sim.endingMoney-sim.holdingPeriods[0].costAmt) / sim.holdingPeriods[0].costAmt * 100 | number:0}}%</td>
+											<td class="col-xs-2 sw-hide-1680">{{sim.totalFeesPaid|currency}}</td>
+											<td class="col-xs-1">{{(sim.holdingPeriods.length * 2)|number:0}}</td>
+											<td class="col-xs-1">
+												<button class="btn btn-default" ng-click="viewSimulationTrades($index);">
+													<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</uib-tab>
+				</uib-tabset>
+			</div>
+		</div>
+		<!-- <div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Advertisement</h3>
+			</div>
+			<div class="panel-body table-panel-pad advertise">
+				<ads></ads>
+			</div>
+		</div> -->
+	</div> <!-- /left column -->
+	<!-- Right Column -->
+	<div class="col-md-9">
+		<!-- Page Information -->
+		<div class="panel panel-primary">
+		
+			<div class="panel-heading"
+						popover-title="{{tutorialService.getPData().title}}"
+						uib-popover-template="tutorialService.template.url"
+						popover-trigger="none" 
+						popover-is-open="tutorialService.isPopoverOpen(3)"
+						popover-placement="{{tutorialService.getPData().position}}"
+						popover-append-to-body="true">
+				<h3 class="panel-title">Simulation dashboard <span ng-show="userSelections.selectedSimRef">results for the period starting in {{userSelections.selectedSimRef.start|date : 'MMMM yyyy'}} and ending in {{userSelections.selectedSimRef.end|date : 'MMMM yyyy'}}</span></h3>
+			</div>
+			<div class="panel-body">
+				<!-- UPPER PLOT -->
+				<!-- chart-data="modelService.data"  -->
+				<composite-chart
+					chart-data="modelService.data" 
+					sub-sampled-data="modelService.subSampledData" 
+					logarithmic="modelService.plotLogarithmic" 
+					field="modelService.plotField"
+					selected-sim="userSelections.selectedSimRef">
+				</composite-chart>
+				
+				<!-- Buttons row -->
+				<div class="row">
+					<div class="col-md-12">	
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-default" ng-class="{'active':modelService.plotField=='open'}" ng-click="modelService.plotField='open'">Open</button>
+							<button type="button" class="btn btn-default" ng-class="{'active':modelService.plotField=='adjClose'}" ng-click="modelService.plotField='adjClose'">Close</button>
+							<button type="button" class="btn btn-default" ng-class="{'active':modelService.plotField=='high'}" ng-click="modelService.plotField='high'">High</button>
+							<button type="button" class="btn btn-default" ng-class="{'active':modelService.plotField=='low'}" ng-click="modelService.plotField='low'">Low</button>
+							<button type="button" 
+								class="btn btn-default" 
+								ng-class="{'active':modelService.plotField=='volume'}" 
+								ng-click="modelService.plotField='volume'"
+								popover-title="{{tutorialService.getPData().title}}"
+								uib-popover-template="tutorialService.template.url"
+								popover-trigger="none" 
+								popover-is-open="tutorialService.isPopoverOpen(4)"
+								popover-placement="{{tutorialService.getPData().position}}"
+								popover-append-to-body="true">Volume</button>
+							<button type="button" class="btn btn-default" ng-class="{'active':modelService.plotField=='ttmPE'}" ng-click="modelService.plotField='ttmPE'">PE Ratio</button>
+						</div>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-default" ng-class="{'active':!modelService.plotLogarithmic}" ng-click="modelService.plotLogarithmic=false">Linear</button>
+							<button type="button" class="btn btn-default" ng-class="{'active':modelService.plotLogarithmic}" ng-click="modelService.plotLogarithmic=true">Logarithmic</button>
+						</div>
+					</div>
+				</div> <!-- /.row -->
+			</div>
+		</div>
+		
+		<div class="panel panel-primary">
+			<div class="panel-heading"
+				popover-title="{{tutorialService.getPData().title}}"
+				uib-popover-template="tutorialService.template.url"
+				popover-trigger="none" 
+				popover-is-open="tutorialService.isPopoverOpen(5)"
+				popover-placement="{{tutorialService.getPData().position}}"
+				popover-append-to-body="true">
+				<h3 class="panel-title">Breakdown of outcomes for {{simulationService.strategyESE.simulationsResult.length}} simulations with an investment horizon of {{simulationService.strategyESE.aggregateResults.simulationPeriodAtTimeOfRun}} years beginning at staggered {{simulationService.strategyESE.props.executionFrequency}}ly intervals</h3>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="thumbnail">
+							<table class="table table-striped">
+								<thead>
+									<th class="col-xs-4"></th>
+									<th class="col-xs-4">{{simulationService.strategyESE.strategy.name}}</th>
+									<th class="col-xs-4">{{simulationService.baselineESE.strategy.name}}</th>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Mean change</td>
+										<td>{{simulationService.strategyESE.aggregateResults.meanPctChange|number:0}}%</td>
+										<td>{{simulationService.baselineESE.aggregateResults.meanPctChange|number:0}}%</td>
+									</tr>
+									<tr>
+										<td>Median change</td>
+										<td>{{simulationService.strategyESE.aggregateResults.medianPctChange|number:0}}%</td>
+										<td>{{simulationService.baselineESE.aggregateResults.medianPctChange|number:0}}%</td>
+									</tr>
+									<tr>
+										<td>Mean terminal value</td>
+										<td>{{simulationService.strategyESE.aggregateResults.meanEndingMoney|currency}}</td>
+										<td>{{simulationService.baselineESE.aggregateResults.meanEndingMoney|currency}}</td>
+									</tr>
+									<tr>
+										<td>Median terminal value</td>
+										<td>{{simulationService.strategyESE.aggregateResults.medianEndingMoney|currency}}</td>
+										<td>{{simulationService.baselineESE.aggregateResults.medianEndingMoney|currency}}</td>
+									</tr>
+									<tr>
+										<td>Mean compound annual growth rate (Nominal)</td>
+										<td>{{simulationService.strategyESE.aggregateResults.meanAnnCompoundingRate*100|number:2}}%</td>
+										<td>{{simulationService.baselineESE.aggregateResults.meanAnnCompoundingRate*100|number:2}}%</td>
+									</tr>
+									<tr>
+										<td>Mean compound annual growth rate (CPI-Adjusted)</td>
+										<td>{{cpiCAGR(simulationService.strategyESE)*100|number:2}}%</td>
+										<td>{{cpiCAGR(simulationService.baselineESE)*100|number:2}}%</td>
+									</tr>
+									<tr>
+										<td>Standard deviation</td>
+										<td>{{simulationService.strategyESE.aggregateResults.stdDevEndingMoney|currency}}</td>
+										<td>{{simulationService.baselineESE.aggregateResults.stdDevEndingMoney|currency}}</td>
+									</tr>
+									<tr>
+										<td>Best outcome</td>
+										<td><a ng-click="userSelections.selectedSimRef=simulationService.strategyESE.aggregateResults.bestEndingMoneySim">
+											{{simulationService.strategyESE.aggregateResults.bestEndingMoneySim.endingMoney|currency}}
+											({{simulationService.strategyESE.aggregateResults.bestEndingMoneySim.firstTick.date|date : 'yyyy'}} to 
+											{{simulationService.strategyESE.aggregateResults.bestEndingMoneySim.lastTick.date|date : 'yyyy'}})
+											</a>
+											<button class="btn btn-default" ng-click="userSelections.selectedSimRef=simulationService.strategyESE.aggregateResults.bestEndingMoneySim; viewSimulationTrades();">
+												<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+											</button>
+										</td>
+										<td><a ng-click="userSelections.selectedSimRef=simulationService.baselineESE.aggregateResults.bestEndingMoneySim">
+											{{simulationService.baselineESE.aggregateResults.bestEndingMoneySim.endingMoney|currency}}
+											({{simulationService.baselineESE.aggregateResults.bestEndingMoneySim.firstTick.date|date : 'yyyy'}} to 
+											{{simulationService.baselineESE.aggregateResults.bestEndingMoneySim.lastTick.date|date : 'yyyy'}})
+											</a>
+											<button class="btn btn-default" ng-click="userSelections.selectedSimRef=simulationService.baselineESE.aggregateResults.bestEndingMoneySim; viewSimulationTrades();">
+												<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+											</button>
+										</td>
+									</tr>
+									<tr>
+										<td>Poorest outcome</td>
+										<td><a ng-click="userSelections.selectedSimRef=simulationService.strategyESE.aggregateResults.worstEndingMoneySim">
+												{{simulationService.strategyESE.aggregateResults.worstEndingMoneySim.endingMoney|currency}}
+												({{simulationService.strategyESE.aggregateResults.worstEndingMoneySim.firstTick.date|date : 'yyyy'}} to 
+												{{simulationService.strategyESE.aggregateResults.worstEndingMoneySim.lastTick.date|date : 'yyyy'}})
+											</a>
+											<button class="btn btn-default" ng-click="userSelections.selectedSimRef=simulationService.strategyESE.aggregateResults.worstEndingMoneySim; viewSimulationTrades();">
+												<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+											</button>
+										</td>
+										<td>
+											<a ng-click="userSelections.selectedSimRef=simulationService.baselineESE.aggregateResults.worstEndingMoneySim">
+												{{simulationService.baselineESE.aggregateResults.worstEndingMoneySim.endingMoney|currency}}
+												({{simulationService.baselineESE.aggregateResults.worstEndingMoneySim.firstTick.date|date : 'yyyy'}} to 
+												{{simulationService.baselineESE.aggregateResults.worstEndingMoneySim.lastTick.date|date : 'yyyy'}})
+											</a>
+											<button class="btn btn-default" ng-click="userSelections.selectedSimRef=simulationService.baselineESE.aggregateResults.worstEndingMoneySim; viewSimulationTrades();">
+												<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="thumbnail">
+							<div class="caption">
+								<small
+									popover-title="{{tutorialService.getPData().title}}"
+									uib-popover-template="tutorialService.template.url"
+									popover-trigger="none" 
+									popover-is-open="tutorialService.isPopoverOpen(6)"
+									popover-placement="{{tutorialService.getPData().position}}"
+									popover-append-to-body="true">Comparison of simulation compound annual growth rates <span ng-show="userSelections.selectedSimVisualization!='ordinal'">by end date</span></small>
+								<compare-scatter
+									ese1="simulationService.strategyESE"
+									ese2="simulationService.baselineESE"
+									axis-type="userSelections.selectedSimVisualization"
+									render-watch="simulationService.status.iteration"></compare-scatter>
+
+								<div class="btn-group" role="group">
+									<button type="button" 
+										class="btn btn-default btn-sm" 
+										ng-class="{'active':userSelections.selectedSimVisualization!='ordinal'}" 
+										ng-click="userSelections.selectedSimVisualization='enddate'"
+										popover-title="{{tutorialService.getPData().title}}"
+										uib-popover-template="tutorialService.template.url"
+										popover-trigger="none" 
+										popover-is-open="tutorialService.isPopoverOpen(7)"
+										popover-placement="{{tutorialService.getPData().position}}"
+										popover-append-to-body="true">Date</button>
+									<button type="button" class="btn btn-default btn-sm" ng-class="{'active':userSelections.selectedSimVisualization=='ordinal'}" ng-click="userSelections.selectedSimVisualization='ordinal'">Ordinal</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="thumbnail">
+							<div class="caption">
+								<small
+									popover-title="{{tutorialService.getPData().title}}"
+									uib-popover-template="tutorialService.template.url"
+									popover-trigger="none" 
+									popover-is-open="tutorialService.isPopoverOpen(8)"
+									popover-placement="{{tutorialService.getPData().position}}"
+									popover-append-to-body="true">Histogram of terminal values in {{simulationService.strategyESE.strategy.name}}</small>
+								<sim-histogram histogram-data="simulationService.strategyESE.simulationsResult"
+								render-watch="simulationService.status.iteration"></sim-histogram>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="thumbnail">
+							<div class="caption">
+								<small>Histogram of terminal values in {{simulationService.baselineESE.strategy.name}}</small>
+								<sim-histogram histogram-data="simulationService.baselineESE.simulationsResult"
+								render-watch="simulationService.status.iteration"></sim-histogram>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		
+	</div><!-- /Right Column -->
+</div> <!-- /.row -->
+</div> <!-- /.section-wrapper -->
